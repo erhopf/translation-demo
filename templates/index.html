@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <title>Translate text with Microsoft Translator</title>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Text Translator</h1>
+      <div class="row">
+        <div class="col">
+        <form>
+            <!-- Enter text to translate. -->
+            <div class="form-group">
+              <label for="text-to-translate">Enter the text you'd like to translate:</label>
+              <textarea class="form-control" id="text-to-translate" rows="5"></textarea>
+            </div>
+            <!-- Select output language here. -->
+            <div class="form-group">
+              <label for="select-language">Translate to:</label>
+              <select class="form-control" id="select-language">
+                <option value="en">English</option>
+                <option value="fr">French</option>
+                <option value="de">German</option>
+                <option value="it">Italian</option>
+                <option value="ja">Japanese</option>
+                <option value="es">Spanish</option>
+                <option value="tr">Turkish</option>
+                <option value="vi">Vietnamese</option>
+              </select>
+            </div>
+            <button type="submit" class="btn btn-primary mb-2" id="translate">Translate!</button></br>
+            <div id="detected-language" style="display: none">
+              <strong>Detected language:</strong> <span id="detected-language-result"></span><br />
+              <strong>Detection confidence:</strong> <span id="confidence"></span><br /><br />
+            </div>
+            <button type="submit" class="btn btn-primary mb-2" id="sentiment-analysis">Run Sentiment Analysis!</button></br>
+            <div id="sentiment" style="display: none">
+              <strong>Sentiment score for input:</strong> <span id="input-sentiment"></span><br />
+              <strong>Sentiment score for translation:</strong> <span id="translation-sentiment"></span>
+            </div>
+          </form>
+          <!-- Translated text returned by the Translate API is rendered here. -->
+        </div>
+        <div class="col">
+          <form>
+            <div class="form-group" id="translator-text-response">
+              <label for="translation-result">Translated text:</label>
+              <textarea readonly class="form-control" id="translation-result" rows="5"></textarea>
+            </div>
+            <div class="form-group">
+              <label for="select-voice">Select voice font:</label>
+              <select class="form-control" id="select-voice">
+                <option value="(en-US, Jessa24kRUS)">English (US) | Female | Jessa24kRUS</option>
+                <option value="(en-US, Guy24kRUS)">English (US) | Male | Guy24kRUS</option>
+                <option value="(en-IE, Sean)">English (IE) | Male | Sean</option>
+                <option value="(fr-FR, Julie, Apollo)">French | Female | Julie, Apollo</option>
+                <option value="(fr-FR, HortenseRUS)">French | Female | Julie, HortenseRUS</option>
+                <option value="(fr-FR, Paul, Apollo)">French | Male | Paul, Apollo</option>
+                <option value="(de-DE, Hedda)">German | Female | Hedda</option>
+                <option value="(de-DE, HeddaRUS)">German | Female | HeddaRUS</option>
+                <option value="(de-DE, Stefan, Apollo)">German | Male | Apollo</option>
+                <option value="(it-IT, LuciaRUS)">Italian | Female | LuciaRUS</option>
+                <option value="(it-IT, Cosimo, Apollo)">Italian | Male | Cosimo, Apollo</option>
+                <option value="(ja-JP, Ichiro, Apollo)">Japanese | Male | Ichiro</option>
+                <option value="(ja-JP, HarukaRUS)">Japanese | Female | HarukaRUS</option>
+                <option value="(es-ES, Laura, Apollo)">Spanish | Female | Laura, Apollo</option>
+                <option value="(es-ES, HelenaRUS)">Spanish | Female | HelenaRUS</option>
+                <option value="(es-ES, Pablo, Apollo)">Spanish | Male | Pablo, Apollo</option>
+                <option value="(tr-TR, SedaRUS)">Turkish | Female | SedaRUS</option>
+                <option value="(vi-VN, An)">Vietnamese | Male | An</option>
+              </select>
+            </div>
+          </form>
+          <button type="submit" class="btn btn-primary mb-2" id="text-to-speech">Convert text to speech!</button>
+          <div id="audio-playback">
+            <audio id="audio" controls>
+              <source id="audio-source" type="audio/mpeg" />
+            </audio>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- Required JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script type = "text/javascript" src ="static/scripts/main.js"></script>
+  </body>
+</html>
