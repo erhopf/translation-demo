@@ -9,7 +9,7 @@ def index():
 @app.route('/translate-text')
 def translate_text():
     text_input = request.args.get("text", default="", type=str)
-    translation_output = request.args.get("to", default="en", type=str)
+    translation_output = request.args.get("to", default="", type=str)
     response = translate.get_translation(text_input, translation_output)
     return response
 

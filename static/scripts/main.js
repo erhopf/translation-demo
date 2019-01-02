@@ -10,7 +10,9 @@ $(function() {
         url: '/translate-text?text=' + translateVal + '&to=' + languageVal,
         method: 'get',
         success: function(data) {
+          console.log(data);
           for (var i = 0; i < data.length; i++) {
+            console.log(data);
             document.getElementById("translation-result").textContent = data[i].translations[0].text;
             document.getElementById("detected-language-result").textContent = data[i].detectedLanguage.language;
             if (document.getElementById("detected-language-result").textContent !== ''){
