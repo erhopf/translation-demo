@@ -2,17 +2,15 @@ $(function() {
   //Translate text with flask route
   $("#translate").on("click", function(e) {
     e.preventDefault();
-    let translateVal = document.getElementById("text-to-translate").value;
-    let languageVal = document.getElementById("select-language").value;
+    var translateVal = document.getElementById("text-to-translate").value;
+    var languageVal = document.getElementById("select-language").value;
 
     if (translateVal !== "") {
       $.ajax({
         url: '/translate-text?text=' + translateVal + '&to=' + languageVal,
         method: 'get',
         success: function(data) {
-          console.log(data);
           for (var i = 0; i < data.length; i++) {
-            console.log(data);
             document.getElementById("translation-result").textContent = data[i].translations[0].text;
             document.getElementById("detected-language-result").textContent = data[i].detectedLanguage.language;
             if (document.getElementById("detected-language-result").textContent !== ''){
@@ -27,11 +25,12 @@ $(function() {
   // Convert text-to-speech
   $("#text-to-speech").on("click", function(e) {
     e.preventDefault();
-    let ttsInput = document.getElementById("translation-result").textContent;
-    let ttsVoice = document.getElementById("select-voice").value;
+    var ttsInput = document.getElementById("translation-result").textContent;
+    var ttsVoice = document.getElementById("select-voice").value;
     $.ajax({
-      url: '/text-to-speech?text=' + ttsInput + '&voice=' + voice_font,
+      url: '/text-to-speech?text=' + ttsInput + '&voice=' + ttsVoice,
       method: 'get',
+      responseType: 'blob',
       success: function(data) {
         audioBlob = new Blob([data], {type: "audio/mpeg"});
         audioURL = URL.createObjectURL(audioBlob);
@@ -49,25 +48,28 @@ $(function() {
   //Run sentinment analysis on input and translation.
   $("#sentiment-analysis").on("click", function(e) {
     e.preventDefault();
-    let inputText = document.getElementById("detected-language-result").textContent;
-    let inputLanguage = document.getElementById("text-to-translate").value;
-    let outputText = document.getElementById("select-language").value;
-    let outputLanguage = document.getElementById("translation-result").value;
-    $.ajax({
-      url: '/sentiment-analysis?input=' + inputText + '&inlang=' + inputLanguage + '&output' + outputText + '&outputlang=' + outputLanguage,
-      method: 'get',
-      success: function(data) {
-        document.getElementById("input-sentiment").textContent = data.documents[0].score;
-        if (typeof data.documents[1] !== 'undefined') {
-          document.getElementById("translation-sentiment").textContent = data.documents[1].score;
-        } else{
-          document.getElementById("translation-sentiment").textContent = "Sentiment analysis isn't supported for " + document.getElementById("select-language").value + "."
+    var inputText = document.getElementById("text-to-translate").value;
+    var inputLanguage = document.getElementById("detected-language-result").value;
+    var outputText = document.getElementById("translation-result").value;
+    var outputLanguage = document.getElementById("select-language").value;
+    if (inputText !== "") {
+      $.ajax({
+        url: '/sentiment-analysis?input=' + inputText + '&inlang=' + inputLanguage + '&output=' + outputText + '&outputlang=' + outputLanguage,
+        method: 'get',
+        success: function(data) {
+          console.log(data);
+          document.getElementById("input-sentiment").textContent = data.documents[0].score;
+          if (typeof data.documents[1] !== 'undefined') {
+            document.getElementById("translation-sentiment").textContent = data.documents[1].score;
+          } else{
+            document.getElementById("translation-sentiment").textContent = "Sentiment analysis isn't supported for " + document.getElementById("select-language").value + "."
+          }
+          if (document.getElementById("input-sentiment").textContent !== '' && document.getElementById("translation-result").textContent !== ''){
+            document.getElementById("sentiment").style.display = "block";
+          }
         }
-        if (document.getElementById("input-sentiment").textContent !== '' && document.getElementById("translation-result").textContent !== ''){
-          document.getElementById("sentiment").style.display = "block";
-        }
-      }
-    });
+      });
+    }
   });
   // Automatic voice font selection based on translation output.
   $('select[id="select-language"]').change(function(e) {

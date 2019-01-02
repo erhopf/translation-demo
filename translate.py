@@ -24,6 +24,5 @@ def get_translation(text_input, language_output):
     body = [{
         'text' : text_input
     }]
-    request = requests.post(constructed_url, headers=headers, json=body)
-    response = json.dumps(request.json(), sort_keys=True, ensure_ascii=False, separators=(',', ': '))
-    return response
+    response = requests.post(constructed_url, headers=headers, json=body)
+    return response.json()

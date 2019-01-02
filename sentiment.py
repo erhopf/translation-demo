@@ -21,20 +21,18 @@ def get_sentiment(input_text, input_language, output_text, output_language):
 
     # You can pass more than one object in body.
     body = {
-        "documents":
-            [{
-                "language":
-                    input_language,
-                    "id": "1",
-                    "text": input_text
+        "documents": [
+            {
+                "language": input_language,
+                "id": "1",
+                "text": input_text
             },
             {
-                "language":
-                output_text,
+                "language": output_language,
                 "id": "2",
-                "text": output_language
-            }]
+                "text": output_text
+            }
+        ]
     }
-    request = requests.post(constructed_url, headers=headers, json=body)
-    response = json.dumps(request.json(), sort_keys=True, ensure_ascii=False, separators=(',', ': '))
-    return response
+    response = requests.post(constructed_url, headers=headers, json=body)
+    return response.json()

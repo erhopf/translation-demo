@@ -11,7 +11,7 @@ def translate_text():
     text_input = request.args.get("text", default="", type=str)
     translation_output = request.args.get("to", default="", type=str)
     response = translate.get_translation(text_input, translation_output)
-    return response
+    return jsonify(response)
 
 @app.route('/text-to-speech')
 def text_to_speech():
@@ -29,4 +29,4 @@ def sentiment_analysis():
     output_text = request.args.get("output", default="", type=str)
     output_language =  request.args.get("outlang", default="", type=str)
     response = sentiment.get_sentiment(input_text, input_language, output_text, output_language)
-    return response
+    return jsonify(response)
