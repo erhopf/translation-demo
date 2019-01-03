@@ -19,8 +19,8 @@ def text_to_speech():
     voice_font = request.args.get("voice", default="", type=str)
     tts = synthesize.TextToSpeech(text_input, voice_font)
     tts.get_token()
-    audio = tts.save_audio()
-    return audio
+    response = tts.save_audio()
+    return response
 
 @app.route('/sentiment-analysis')
 def sentiment_analysis():

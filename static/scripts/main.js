@@ -13,11 +13,14 @@ $(function() {
           for (var i = 0; i < data.length; i++) {
             document.getElementById("translation-result").textContent = data[i].translations[0].text;
             document.getElementById("detected-language-result").textContent = data[i].detectedLanguage.language;
-            if (document.getElementById("detected-language-result").textContent !== ''){
+            if (document.getElementById("detected-language-result").textContent !== ""){
               document.getElementById("detected-language").style.display = "block";
             }
             document.getElementById("confidence").textContent = data[i].detectedLanguage.score;
           }
+        console.log(document.getElementById("detected-language-result").innerHTML);
+        console.log("zip");
+        console.log(document.getElementById("translation-result").value);
         }
       });
     };
@@ -25,31 +28,34 @@ $(function() {
   // Convert text-to-speech
   $("#text-to-speech").on("click", function(e) {
     e.preventDefault();
-    var ttsInput = document.getElementById("translation-result").textContent;
+    var ttsInput = document.getElementById("translation-result").value;
     var ttsVoice = document.getElementById("select-voice").value;
-    $.ajax({
-      url: '/text-to-speech?text=' + ttsInput + '&voice=' + ttsVoice,
-      method: 'get',
-      responseType: 'blob',
-      success: function(data) {
-        audioBlob = new Blob([data], {type: "audio/mpeg"});
+    var xhr = new XMLHttpRequest();
+    xhr.open("GET", '/text-to-speech?text=' + ttsInput + '&voice=' + ttsVoice, true);
+    xhr.responseType = "blob";
+    xhr.onload = function(evt){
+      if (xhr.status === 200) {
+        audioBlob = new Blob([xhr.response], {type: "audio/mpeg"});
         audioURL = URL.createObjectURL(audioBlob);
         if (audioURL.length > 5){
-          let audio = document.getElementById('audio');
-          let source = document.getElementById('audio-source');
+          var audio = document.getElementById('audio');
+          var source = document.getElementById('audio-source');
           source.src = audioURL;
           audio.load();
           audio.play();
+        }else{
+          console.log("An error occurred getting and playing the audio.")
         }
       }
-    });
+    }
+    xhr.send();
   });
 
   //Run sentinment analysis on input and translation.
   $("#sentiment-analysis").on("click", function(e) {
     e.preventDefault();
     var inputText = document.getElementById("text-to-translate").value;
-    var inputLanguage = document.getElementById("detected-language-result").value;
+    var inputLanguage = document.getElementById("detected-language-result").innerHTML;
     var outputText = document.getElementById("translation-result").value;
     var outputLanguage = document.getElementById("select-language").value;
     if (inputText !== "") {

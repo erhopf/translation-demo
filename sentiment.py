@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 import os, requests, uuid, json
 
 if 'SENTIMENT_ANALYSIS_KEY' in os.environ:
