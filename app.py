@@ -1,9 +1,8 @@
 from flask import Flask, render_template, url_for, jsonify, request
-import translate, synthesize, sentiment
-import sys
+import translate, synthesize, sentiment, sys
 if sys.version_info.major < 3:
     reload(sys)
-sys.setdefaultencoding('utf8')
+sys.setdefaultencoding('utf-8')
 
 app = Flask(__name__)
 
@@ -29,9 +28,9 @@ def text_to_speech():
 
 @app.route('/sentiment-analysis')
 def sentiment_analysis():
-    input_text = request.args.get("input", default="", type=str)
-    input_language = request.args.get("inlang", default="", type=str)
-    output_text = request.args.get("output", default="", type=str)
-    output_language =  request.args.get("outlang", default="", type=str)
+    input_text = request.args.get("input", type=str)
+    input_language = request.args.get("inlang", type=str)
+    output_text = request.args.get("output", type=str)
+    output_language = request.args.get("outlang", type=str)
     response = sentiment.get_sentiment(input_text, input_language, output_text, output_language)
     return jsonify(response)
