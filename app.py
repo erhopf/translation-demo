@@ -1,5 +1,10 @@
 from flask import Flask, render_template, url_for, jsonify, request
 import translate, synthesize, sentiment
+import sys
+if sys.version_info.major < 3:
+    reload(sys)
+sys.setdefaultencoding('utf8')
+
 app = Flask(__name__)
 
 @app.route('/')
@@ -19,8 +24,8 @@ def text_to_speech():
     voice_font = request.args.get("voice", default="", type=str)
     tts = synthesize.TextToSpeech(text_input, voice_font)
     tts.get_token()
-    response = tts.save_audio()
-    return response
+    audio_response = tts.save_audio()
+    return audio_response
 
 @app.route('/sentiment-analysis')
 def sentiment_analysis():

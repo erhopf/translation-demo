@@ -18,9 +18,6 @@ $(function() {
             }
             document.getElementById("confidence").textContent = data[i].detectedLanguage.score;
           }
-        console.log(document.getElementById("detected-language-result").innerHTML);
-        console.log("zip");
-        console.log(document.getElementById("translation-result").value);
         }
       });
     };
@@ -35,7 +32,7 @@ $(function() {
     xhr.responseType = "blob";
     xhr.onload = function(evt){
       if (xhr.status === 200) {
-        audioBlob = new Blob([xhr.response], {type: "audio/mpeg"});
+        audioBlob = new Blob([xhr.response], {type: "audio/wav"});
         audioURL = URL.createObjectURL(audioBlob);
         if (audioURL.length > 5){
           var audio = document.getElementById('audio');
