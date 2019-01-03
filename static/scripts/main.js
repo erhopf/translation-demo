@@ -55,6 +55,7 @@ $(function() {
     var inputLanguage = document.getElementById("detected-language-result").innerHTML;
     var outputText = document.getElementById("translation-result").value;
     var outputLanguage = document.getElementById("select-language").value;
+    console.log(outputLanguage);
     if (inputText !== "") {
       $.ajax({
         url: '/sentiment-analysis?input=' + inputText + '&inlang=' + inputLanguage + '&output=' + outputText + '&outputlang=' + outputLanguage,
