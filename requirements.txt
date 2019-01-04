@@ -1,6 +1,5 @@
 ###### Requirements without Version Specifiers ######
 uuid
-json
 requests
 
 ###### Requirements with Version Specifiers ######
