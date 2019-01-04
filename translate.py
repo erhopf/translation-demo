@@ -20,7 +20,7 @@ def get_translation(text_input, language_output):
 
     # You can pass more than one object in body.
     body = [{
-        'text' : text_input
+        "text" : text_input
     }]
     response = requests.post(constructed_url, headers=headers, json=body)
     return response.json()

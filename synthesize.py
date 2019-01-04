@@ -10,12 +10,12 @@ class TextToSpeech(object):
         self.subscription_key = subscription_key
         self.input_text = input_text
         self.voice_font = voice_font
-        self.timestr = time.strftime("%Y%m%d-%H%M")
+        self.timestr = time.strftime('%Y%m%d-%H%M')
         self.access_token = None
 
     # This function performs the token exchange.
     def get_token(self):
-        fetch_token_url = "https://westus.api.cognitive.microsoft.com/sts/v1.0/issueToken"
+        fetch_token_url = 'https://westus.api.cognitive.microsoft.com/sts/v1.0/issueToken'
         headers = {
             'Ocp-Apim-Subscription-Key': self.subscription_key
         }
