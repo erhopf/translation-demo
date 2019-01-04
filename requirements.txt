@@ -5,3 +5,4 @@ requests
 ###### Requirements with Version Specifiers ######
 Flask==1.0.2
 python-dotenv==0.10.1
+Werkzeug==0.14.1
