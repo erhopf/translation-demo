@@ -29,18 +29,10 @@ def text_to_speech():
 
 @app.route('/sentiment-analysis', methods=['POST'])
 def sentiment_analysis():
-    #input_text = request.args.get('input', type=str)
-    #input_language = request.args.get('inlang', type=str)
-    #output_text = request.args.get('output', type=str)
-    #output_language = request.args.get('outlang', type=str)
     data = request.get_json()
     input_text = data['inputText']
     input_lang = data['inputLanguage']
     output_text = data['outputText']
     output_lang =  data['outputLanguage']
-    #return jsonify({'inputText' : input_text, 'inputLanguage': input_lang, 'outputText': output_text, 'outputLanguage': output_lang })
     response = sentiment.get_sentiment(input_text, input_lang, output_text, output_lang)
     return jsonify(response)
-
-if __name__ == '__main__':
-    app.run()
