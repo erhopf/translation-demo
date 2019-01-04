@@ -1,5 +1,5 @@
 from flask import Flask, render_template, url_for, jsonify, request
-import translate, synthesize, sentiment, sys
+import translate, synthesize, sentiment, ocr, sys
 if sys.version_info.major < 3:
     reload(sys)
 sys.setdefaultencoding('utf-8')
@@ -35,4 +35,10 @@ def sentiment_analysis():
     output_text = data['outputText']
     output_lang =  data['outputLanguage']
     response = sentiment.get_sentiment(input_text, input_lang, output_text, output_lang)
+    return jsonify(response)
+
+@app.route('/ocr')
+def ocr_image():
+    image_url = request.args.get('image', default='', type=str)
+    response = ocr.get_ocr(image_url)
     return jsonify(response)
