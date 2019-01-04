@@ -8,22 +8,24 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
-    <title>Translate text with Microsoft Translator</title>
+    <title>Translate and analyze text with Azure Cognitive Services</title>
   </head>
   <body>
     <div class="container">
-      <h1>Text Translator</h1>
+      <h1>Translate, synthesize, and analyze text with Azure</h1>
+      <p>This simple web app uses Azure for text translation, text-to-speech conversion, and sentiment analysis of input text and translations. Learn more about <a href="https://docs.microsoft.com/azure/cognitive-services/">Azure Cognitive Services</a>.
+      </p>
       <div class="row">
         <div class="col">
         <form>
             <!-- Enter text to translate. -->
             <div class="form-group">
-              <label for="text-to-translate">Enter the text you'd like to translate:</label>
+              <label for="text-to-translate"><strong>Enter the text you'd like to translate:</strong></label>
               <textarea class="form-control" id="text-to-translate" rows="5"></textarea>
             </div>
             <!-- Select output language here. -->
             <div class="form-group">
-              <label for="select-language">Translate to:</label>
+              <label for="select-language"><strong>Translate to:</strong></label>
               <select class="form-control" id="select-language">
                 <option value="en">English</option>
                 <option value="fr">French</option>
@@ -35,12 +37,12 @@
                 <option value="vi">Vietnamese</option>
               </select>
             </div>
-            <button type="submit" class="btn btn-primary mb-2" id="translate">Translate!</button></br>
+            <button type="submit" class="btn btn-primary mb-2" id="translate">Translate text</button></br>
             <div id="detected-language" style="display: none">
               <strong>Detected language:</strong> <span id="detected-language-result"></span><br />
               <strong>Detection confidence:</strong> <span id="confidence"></span><br /><br />
             </div>
-            <button type="submit" class="btn btn-primary mb-2" id="sentiment-analysis">Run Sentiment Analysis!</button></br>
+            <button type="submit" class="btn btn-primary mb-2" id="sentiment-analysis">Run sentiment analysis</button></br>
             <div id="sentiment" style="display: none">
               <strong>Sentiment score for input:</strong> <span id="input-sentiment"></span><br />
               <strong>Sentiment score for translation:</strong> <span id="translation-sentiment"></span>
@@ -51,11 +53,11 @@
         <div class="col">
           <form>
             <div class="form-group" id="translator-text-response">
-              <label for="translation-result">Translated text:</label>
+              <label for="translation-result"><strong>Translated text:</strong></label>
               <textarea readonly class="form-control" id="translation-result" rows="5"></textarea>
             </div>
             <div class="form-group">
-              <label for="select-voice">Select voice font:</label>
+              <label for="select-voice"><strong>Select voice font:</strong></label>
               <select class="form-control" id="select-voice">
                 <option value="(en-US, Jessa24kRUS)">English (US) | Female | Jessa24kRUS</option>
                 <option value="(en-US, Guy24kRUS)">English (US) | Male | Guy24kRUS</option>
@@ -78,7 +80,7 @@
               </select>
             </div>
           </form>
-          <button type="submit" class="btn btn-primary mb-2" id="text-to-speech">Convert text to speech!</button>
+          <button type="submit" class="btn btn-primary mb-2" id="text-to-speech">Convert text-to-speech</button>
           <div id="audio-playback">
             <audio id="audio" controls>
               <source id="audio-source" type="audio/mpeg" />
