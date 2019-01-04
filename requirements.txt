@@ -1,11 +1,11 @@
 ###### Requirements without Version Specifiers ######
 uuid
 json
+requests
 
 ###### Requirements with Version Specifiers ######
 Flask==1.0.2
 python-dotenv==0.10.1
 virtualenv==16.0.0
 Werkzeug==0.14.1
-requests==2.19.1
 futures==3.2.0
