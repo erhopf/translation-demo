@@ -1,0 +1,7 @@
+###### Requirements without Version Specifiers ######
+requests
+uuid
+json
+
+###### Requirements with Version Specifiers ######
+flask==1.0.2

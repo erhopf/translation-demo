@@ -55,20 +55,40 @@ $(function() {
     var inputLanguage = document.getElementById("detected-language-result").innerHTML;
     var outputText = document.getElementById("translation-result").value;
     var outputLanguage = document.getElementById("select-language").value;
-    console.log(outputLanguage);
+
+    var sentimentRequest = { "inputText": inputText, "inputLanguage": inputLanguage, "outputText": outputText, "outputLanguage": outputLanguage };
+
     if (inputText !== "") {
       $.ajax({
-        url: '/sentiment-analysis?input=' + inputText + '&inlang=' + inputLanguage + '&output=' + outputText + '&outputlang=' + outputLanguage,
-        method: 'get',
+        url: '/sentiment-analysis',
+        method: 'POST',
+        headers: {
+            'Content-Type':'application/json'
+        },
+        dataType: 'json',
+        data: JSON.stringify(sentimentRequest),
         success: function(data) {
-          console.log(data);
-          document.getElementById("input-sentiment").textContent = data.documents[0].score;
-          if (typeof data.documents[1] !== 'undefined') {
-            document.getElementById("translation-sentiment").textContent = data.documents[1].score;
-          } else{
-            document.getElementById("translation-sentiment").textContent = "Sentiment analysis isn't supported for " + document.getElementById("select-language").value + "."
+          for (var i = 0; i < data.documents.length; i++) {
+            if (typeof data.documents[i] !== 'undefined'){
+              if (data.documents[i].id === "1") {
+                document.getElementById("input-sentiment").textContent = data.documents[i].score;
+              }
+              if (data.documents[i].id === "2") {
+                document.getElementById("translation-sentiment").textContent = data.documents[i].score;
+              }
+            }
           }
-          if (document.getElementById("input-sentiment").textContent !== '' && document.getElementById("translation-result").textContent !== ''){
+          for (var i = 0; i < data.errors.length; i++) {
+            if (typeof data.errors[i] !== 'undefined'){
+              if (data.errors[i].id === "1") {
+                document.getElementById("input-sentiment").textContent = data.errors[i].message;
+              }
+              if (data.errors[i].id === "2") {
+                document.getElementById("translation-sentiment").textContent = data.errors[i].message;
+              }
+            }
+          }
+          if (document.getElementById("input-sentiment").textContent !== '' && document.getElementById("translation-sentiment").textContent !== ''){
             document.getElementById("sentiment").style.display = "block";
           }
         }
