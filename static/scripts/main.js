@@ -36,12 +36,12 @@ $(function() {
     var ttsRequest = { 'text': ttsInput, 'voice': ttsVoice }
 
     var xhr = new XMLHttpRequest();
-    xhr.open("POST", '/text-to-speech', true);
+    xhr.open('post', '/text-to-speech', true);
     xhr.setRequestHeader("Content-Type", "application/json");
     xhr.responseType = "blob";
     xhr.onload = function(evt){
       if (xhr.status === 200) {
-        audioBlob = new Blob([xhr.response], {type: "audio/mpeg"});
+        audioBlob = new Blob([xhr.response], {type: "audio/wav"});
         audioURL = URL.createObjectURL(audioBlob);
         if (audioURL.length > 5){
           var audio = document.getElementById('audio');
@@ -54,7 +54,7 @@ $(function() {
         }
       }
     }
-    xhr.send(ttsRequest);
+    xhr.send(JSON.stringify(ttsRequest));
   });
 
   //Run sentinment analysis on input and translation.

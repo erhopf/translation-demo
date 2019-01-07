@@ -1,8 +1,5 @@
 from flask import Flask, render_template, url_for, jsonify, request
 import translate, synthesize, sentiment, sys
-if sys.version_info.major < 3:
-    reload(sys)
-sys.setdefaultencoding('utf-8')
 
 app = Flask(__name__)
 app.config['JSON_AS_ASCII'] = False
@@ -25,8 +22,8 @@ def translate_text():
 @app.route('/text-to-speech', methods=['POST'])
 def text_to_speech():
     data = request.get_json()
-    text_input = data['text']
-    voice_font = data['voice']
+    text_input = data['text'].encode("utf-8")
+    voice_font = data['voice'].encode("utf-8")
     #Old get request
     #text_input = request.args.get('text', default='', type=str)
     #voice_font = request.args.get('voice', default='', type=str)
