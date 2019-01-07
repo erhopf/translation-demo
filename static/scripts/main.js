@@ -32,7 +32,7 @@ $(function() {
     xhr.responseType = "blob";
     xhr.onload = function(evt){
       if (xhr.status === 200) {
-        audioBlob = new Blob([xhr.response], {type: "audio/wav"});
+        audioBlob = new Blob([xhr.response], {type: "audio/mpeg"});
         audioURL = URL.createObjectURL(audioBlob);
         if (audioURL.length > 5){
           var audio = document.getElementById('audio');
