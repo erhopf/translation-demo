@@ -4,11 +4,17 @@ $(function() {
     e.preventDefault();
     var translateVal = document.getElementById("text-to-translate").value;
     var languageVal = document.getElementById("select-language").value;
+    var translateRequest = { 'text': translateVal, 'to': languageVal }
 
     if (translateVal !== "") {
       $.ajax({
-        url: '/translate-text?text=' + translateVal + '&to=' + languageVal,
-        method: 'get',
+        url: '/translate-text',
+        method: 'POST',
+        headers: {
+            'Content-Type':'application/json'
+        },
+        dataType: 'json',
+        data: JSON.stringify(translateRequest),
         success: function(data) {
           for (var i = 0; i < data.length; i++) {
             document.getElementById("translation-result").textContent = data[i].translations[0].text;
@@ -27,8 +33,11 @@ $(function() {
     e.preventDefault();
     var ttsInput = document.getElementById("translation-result").value;
     var ttsVoice = document.getElementById("select-voice").value;
+    var ttsRequest = { 'text': ttsInput, 'voice': ttsVoice }
+
     var xhr = new XMLHttpRequest();
-    xhr.open("GET", '/text-to-speech?text=' + ttsInput + '&voice=' + ttsVoice, true);
+    xhr.open('post', '/text-to-speech', true);
+    xhr.setRequestHeader("Content-Type", "application/json");
     xhr.responseType = "blob";
     xhr.onload = function(evt){
       if (xhr.status === 200) {
@@ -45,7 +54,7 @@ $(function() {
         }
       }
     }
-    xhr.send();
+    xhr.send(JSON.stringify(ttsRequest));
   });
 
   //Run sentinment analysis on input and translation.
