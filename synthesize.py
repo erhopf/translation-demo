@@ -33,7 +33,17 @@ class TextToSpeech(object):
             'X-Microsoft-OutputFormat': 'riff-24khz-16bit-mono-pcm',
             'User-Agent': 'YOUR_RESOURCE_NAME',
         }
-        body = "<speak version='1.0' xml:lang='en-US'><voice xml:lang='en-US' xml:gender='Female' name='Microsoft Server Speech Text to Speech Voice " + self.voice_font + "'>" + self.input_text + "</voice></speak>"
+
+        xml_body = ElementTree.Element('speak', version='1.0')
+        xml_body.set('{http://www.w3.org/XML/1998/namespace}lang', 'en-us')
+        voice = ElementTree.SubElement(xml_body, 'voice')
+        voice.set('{http://www.w3.org/XML/1998/namespace}lang', 'en-US')
+        voice.set('name', 'Microsoft Server Speech Text to Speech Voice ' + self.voice_font)
+        voice.text = self.input_text
+        body = ElementTree.tostring(xml_body)
+
+        # If XML works, this next line should be deleted.
+        # body = "<speak version='1.0' xml:lang='en-US'><voice xml:lang='en-US' xml:gender='Female' name='Microsoft Server Speech Text to Speech Voice " + self.voice_font + "'>" + self.input_text + "</voice></speak>"
 
         response = requests.post(constructed_url, headers=headers, data=body)
         # Write the response as a wav file for playback. The file is located
