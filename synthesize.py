@@ -1,4 +1,5 @@
 import os, requests, time
+from xml.etree import ElementTree
 
 class TextToSpeech(object):
     def __init__(self, input_text, voice_font):
@@ -40,10 +41,8 @@ class TextToSpeech(object):
         voice.set('{http://www.w3.org/XML/1998/namespace}lang', 'en-US')
         voice.set('name', 'Microsoft Server Speech Text to Speech Voice ' + self.voice_font)
         voice.text = self.input_text
-        body = ElementTree.tostring(xml_body)
-
-        # If XML works, this next line should be deleted.
-        # body = "<speak version='1.0' xml:lang='en-US'><voice xml:lang='en-US' xml:gender='Female' name='Microsoft Server Speech Text to Speech Voice " + self.voice_font + "'>" + self.input_text + "</voice></speak>"
+        # The body must be encoded as UTF-8 to handle non-ascii characters.
+        body = ElementTree.tostring(xml_body, encoding="utf-8")
 
         response = requests.post(constructed_url, headers=headers, data=body)
         # Write the response as a wav file for playback. The file is located

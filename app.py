@@ -22,8 +22,8 @@ def translate_text():
 @app.route('/text-to-speech', methods=['POST'])
 def text_to_speech():
     data = request.get_json()
-    text_input = data['text'].encode("utf-8")
-    voice_font = data['voice'].encode("utf-8")
+    text_input = data['text']
+    voice_font = data['voice']
     #Old get request
     #text_input = request.args.get('text', default='', type=str)
     #voice_font = request.args.get('voice', default='', type=str)
