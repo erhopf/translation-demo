@@ -14,9 +14,9 @@ If you clone/fork this repository for personal use, you'll need subscription key
 * Translator Text
 * Text Analytics
 
-*This app works with trial subscriptions.*
+*NOTE: This app works with trial subscriptions.*
 
-After you've obtained the keys, you'll need to set some environment variables. This app looks for these env variables:
+After you get the keys, you'll need to set some environment variables. This app looks for these env variables:
 
 * `SPEECH_SERVICE_KEY`
 * `TRANSLATOR_TEXT_KEY`
