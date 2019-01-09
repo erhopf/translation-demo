@@ -39,7 +39,7 @@ class TextToSpeech(object):
         xml_body.set('{http://www.w3.org/XML/1998/namespace}lang', 'en-us')
         voice = ElementTree.SubElement(xml_body, 'voice')
         voice.set('{http://www.w3.org/XML/1998/namespace}lang', 'en-US')
-        voice.set('name', 'Microsoft Server Speech Text to Speech Voice ' + self.voice_font)
+        voice.set('name', 'Microsoft Server Speech Text to Speech Voice {}'.format(self.voice_font))
         voice.text = self.input_text
         # The body must be encoded as UTF-8 to handle non-ascii characters.
         body = ElementTree.tostring(xml_body, encoding="utf-8")
